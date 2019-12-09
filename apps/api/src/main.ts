@@ -7,9 +7,12 @@ import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe());
+
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
 
