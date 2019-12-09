@@ -11,3 +11,7 @@ export interface User {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type UserSafe = Omit<User, 'password'>;
+
+export type UserFromJWT = Pick<User, 'id' | 'email'>;
