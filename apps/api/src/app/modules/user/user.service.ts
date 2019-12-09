@@ -12,7 +12,6 @@ export class UserService {
   }
 
   async create(email: string, password: string) {
-    // TODO encrypt password
     const checkUser = await this.findOne(email);
     if (checkUser !== undefined) {
       throw new HttpException('email already exists', 400);
