@@ -9,6 +9,8 @@ import { NavComponent } from './components/layout/nav/nav.component';
 import { MaterialModule } from './modules/material/material.module';
 import { HomeComponent } from './containers/home/home.component';
 import { AuthModule } from './modules/auth/auth.module';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { AuthModule } from './modules/auth/auth.module';
     AppRoutingModule,
     MaterialModule,
     AuthModule,
+    environment.production ? [] : AkitaNgDevtools.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
