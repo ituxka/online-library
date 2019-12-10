@@ -3,10 +3,25 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
+import { NavComponent } from './components/layout/nav/nav.component';
+import { MaterialModule } from './modules/material/material.module';
+import { HomeComponent } from './containers/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule],
+  declarations: [
+    AppComponent,
+    NavComponent,
+    HomeComponent,
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    MaterialModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
