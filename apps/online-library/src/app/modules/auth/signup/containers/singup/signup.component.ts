@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthStoreService } from '../../../state';
+import { SnackbarService } from '../../../../shared/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'ol-signup',
@@ -15,6 +16,7 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authStoreService: AuthStoreService,
+    private snackBar: SnackbarService,
   ) { }
 
   ngOnInit() {
@@ -38,8 +40,10 @@ export class SignupComponent implements OnInit {
 
     const { email, password } = this.signUpForm.value;
     this.authStoreService.signUp(email, password).subscribe({
-      next: () => alert('yay all good'),
-      error: err => alert(err),
+      next: () => {
+        this.snackBar.openSuccess('Register successful');
+      },
+      error: err => this.snackBar.openError(err),
     });
   }
 
