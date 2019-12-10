@@ -23,8 +23,7 @@ export class AuthController {
   @Post('signup')
   @UsePipes(ValidationPipe)
   async signUp(@Body() signUpUserDTO: SignUpUserDTO) {
-    const hashedPassword = await this.authService.hashPassword(signUpUserDTO.password);
-    return this.userService.create(signUpUserDTO.email, hashedPassword);
+    return this.authService.singUp(signUpUserDTO.email, signUpUserDTO.password);
   }
 
   @Post('signin')
