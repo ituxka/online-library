@@ -1,1 +1,39 @@
-<p>signin works!</p>
+<div class="auth">
+  <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="form auth__form">
+
+    <h1>Sign in</h1>
+
+    <mat-form-field>
+      <input
+        type="email"
+        matInput
+        placeholder="Email address"
+        formControlName="email"
+        required>
+      <mat-error *ngIf="email.errors?.required">Email is required</mat-error>
+      <mat-error *ngIf="email.errors?.email">Provide a valid email</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        [type]="hidePassword ? 'password' : 'text'"
+        matInput
+        placeholder="Password"
+        formControlName="password"
+        required>
+      <mat-icon class="cursor-pointer" matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error *ngIf="password.errors?.required">Password is required</mat-error>
+      <mat-error *ngIf="password.errors?.minlength">Password must be at least 6 characters long</mat-error>
+    </mat-form-field>
+
+    <div class="form__buttons">
+      <button (click)="onClear()" mat-raised-button color="accent">Clear</button>
+      <button [disabled]="signInForm.invalid" type="submit" mat-raised-button color="primary">Submit</button>
+    </div>
+
+    <div class="form__buttons">
+      <a routerLink="/auth/signup">Not registered?</a>
+    </div>
+
+  </form>
+</div>
