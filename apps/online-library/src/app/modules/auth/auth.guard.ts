@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
         return false;
       case authPath && !signedIn: return true;
       case !authPath && signedIn: return true;
-      default:
+      case !authPath && !signedIn:
         this.router.navigate(['auth']).then();
         return false;
     }
