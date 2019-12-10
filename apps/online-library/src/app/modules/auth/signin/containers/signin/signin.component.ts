@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthStoreService } from '../../../state';
+import { SnackbarService } from '../../../../shared/services/snackbar/snackbar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ol-signin',
@@ -13,6 +16,9 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private authStoreService: AuthStoreService,
+    private snackBar: SnackbarService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -35,7 +41,13 @@ export class SigninComponent implements OnInit {
     }
 
     const { email, password } = this.signInForm.value;
-    alert(email + password);
+    this.authStoreService.signIn(email, password).subscribe({
+      next: () => {
+        this.snackBar.openSuccess('Signin successful');
+        this.router.navigate(['/']).then();
+      },
+      error: () => this.snackBar.openError('Invalid credentials'),
+    });
   }
 
   onClear() {
