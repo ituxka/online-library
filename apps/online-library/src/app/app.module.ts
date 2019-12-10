@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NavComponent } from './components/layout/nav/nav.component';
 import { MaterialModule } from './modules/material/material.module';
 import { HomeComponent } from './containers/home/home.component';
+import { AuthModule } from './modules/auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HomeComponent } from './containers/home/home.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     MaterialModule,
+    AuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
