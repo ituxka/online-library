@@ -46,7 +46,7 @@ export class SignupComponent implements OnInit {
         this.snackBar.openSuccess('Register successful');
         this.router.navigate(['/']).then();
       },
-      error: err => this.snackBar.openError(err),
+      error: ({ error }) => this.snackBar.openError(error.message),
     });
   }
 
