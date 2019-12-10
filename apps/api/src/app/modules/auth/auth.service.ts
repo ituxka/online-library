@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
-import { SignUpResult, UserSafe } from '@online-library/api-interfaces';
+import { AuthResult, UserSafe } from '@online-library/api-interfaces';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { JwtToken } from '../../../../../../libs/api-interfaces/src/lib/jwt-interfaces';
 
 @Injectable()
 export class AuthService {
@@ -27,22 +26,22 @@ export class AuthService {
     return null;
   }
 
-  async singUp(email: string, password: string): Promise<SignUpResult> {
+  async singUp(email: string, password: string): Promise<AuthResult> {
     const hashedPassword = await this.hashPassword(password);
     const user = await this.userService.create(email, hashedPassword);
     const userSafe = this.userService.convertToSafeUser(user);
-    const token = this.signIn(user);
 
-    return {
-      token,
-      user: userSafe,
-    };
+    return this.signIn(userSafe);
   }
 
-  signIn(user: UserSafe): JwtToken {
+  async signIn(user: UserSafe): Promise<AuthResult> {
     const payload = { email: user.email, sub: user.id };
+
     return {
-      access_token: this.jwtService.sign(payload),
+      user,
+      token: {
+        access_token: this.jwtService.sign(payload),
+      },
     };
   }
 
