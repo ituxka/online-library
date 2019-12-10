@@ -5,6 +5,8 @@ import { environment } from '../../../../environments/environment';
 import { pipe } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { SignUpResult } from '@online-library/api-interfaces';
+import { SignUpUserDTO } from '../../../../../../api/src/app/modules/user/dtos/create-user.dto';
+import { setLoading } from '@datorama/akita';
 
 @Injectable()
 export class AuthStoreService {
@@ -22,4 +24,15 @@ export class AuthStoreService {
     private http: HttpClient,
   ) {
   }
+
+  signUp(email: string, password: string) {
+    return this.http
+      // TODO need better url building
+      .post<SignUpResult>(`${this.url}auth/signup`, { email, password } as SignUpUserDTO)
+      .pipe(
+        setLoading(this.authStore),
+        this.updateStore$,
+      );
+  }
+
 }

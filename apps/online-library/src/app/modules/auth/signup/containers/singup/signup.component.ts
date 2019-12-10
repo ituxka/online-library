@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthStoreService } from '../../../state';
 
 @Component({
   selector: 'ol-signup',
@@ -13,6 +14,7 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private authStoreService: AuthStoreService,
   ) { }
 
   ngOnInit() {
@@ -35,7 +37,10 @@ export class SignupComponent implements OnInit {
     }
 
     const { email, password } = this.signUpForm.value;
-    alert(email + password);
+    this.authStoreService.signUp(email, password).subscribe({
+      next: () => alert('yay all good'),
+      error: err => alert(err),
+    });
   }
 
   onClear() {
