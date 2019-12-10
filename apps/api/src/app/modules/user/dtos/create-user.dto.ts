@@ -1,7 +1,7 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsString, Matches } from 'class-validator';
 
 export class SignUpUserDTO {
-  @IsEmail()
+  @Matches(/.+@.+/, { message: 'invalid email' })
   readonly email: string;
 
   @IsString()
