@@ -4,8 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { pipe } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { AuthResult, SignInPayload, SignUpPayload } from '@online-library/api-interfaces';
+import { AuthResult, SignInPayload, SignUpPayload, UserSafe } from '@online-library/api-interfaces';
 import { setLoading } from '@datorama/akita';
+import { AuthQuery } from './auth.query';
 
 @Injectable()
 export class AuthStoreService {
@@ -21,6 +22,7 @@ export class AuthStoreService {
   constructor(
     private authStore: AuthStore,
     private http: HttpClient,
+    private authQuery: AuthQuery,
   ) {
   }
 
@@ -41,6 +43,15 @@ export class AuthStoreService {
         setLoading(this.authStore),
         this.updateStore$,
       );
+  }
+
+  validateToken(): Promise<UserSafe> {
+    return this.http
+      .get<UserSafe>(`${this.url}auth/validate-token`, {
+        headers: {
+          Authorization: `Bearer ${this.authQuery.getValue().token}`,
+        },
+      }).toPromise();
   }
 
   logout() {

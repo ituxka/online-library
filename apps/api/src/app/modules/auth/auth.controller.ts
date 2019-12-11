@@ -33,10 +33,11 @@ export class AuthController {
     return this.authService.signIn(user);
   }
 
-  @Get('protected')
+  @Get('validate-token')
   @UseGuards(AuthGuard('jwt'))
-  protected(@Request() req) {
+  async validate(@Request() req) {
     const user: UserFromJWT = req.user;
-    return user;
+    const userFromDB = await this.userService.findOne(user.email);
+    return this.userService.convertToSafeUser(userFromDB);
   }
 }

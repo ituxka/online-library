@@ -1,9 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthStoreService } from './modules/auth/state';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ol-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  constructor(
+    private authStoreService: AuthStoreService,
+    private router: Router,
+  ) {
+  }
+
+  ngOnInit() {
+    this.authStoreService.validateToken()
+      .catch(() => {
+        this.authStoreService.logout();
+        this.router.navigate(['/auth']).then();
+      });
+  }
 }
