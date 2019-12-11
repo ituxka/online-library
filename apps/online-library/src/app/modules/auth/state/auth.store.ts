@@ -12,7 +12,7 @@ export const createInitialState = (): AuthState => ({
   user: null,
 });
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @StoreConfig({ name: 'auth' })
 export class AuthStore extends Store<AuthState> {
   constructor() {

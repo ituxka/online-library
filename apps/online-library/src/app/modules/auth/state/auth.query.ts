@@ -2,7 +2,7 @@ import { Query, toBoolean } from '@datorama/akita';
 import { AuthState, AuthStore } from './auth.store';
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthQuery extends Query<AuthState>{
   isSignedIn$ = this.select(store => toBoolean(store.token));
 
