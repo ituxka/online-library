@@ -1,4 +1,4 @@
-import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
+import { HttpException, Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { UserService } from '../user.service';
 import { environment } from '../../../../environments/environment';
 import { UserRole } from '@online-library/api-interfaces';
@@ -13,9 +13,17 @@ export class UserSeederService implements OnApplicationBootstrap {
   ) {
   }
 
-  onApplicationBootstrap() {
-    this.createModerator()
-      .catch(err => console.log(err));
+  async onApplicationBootstrap() {
+    try {
+      await this.createModerator();
+    } catch (e) {
+      if (e instanceof HttpException) {
+        console.log(e.message);
+        return;
+      }
+
+      console.log(e);
+    }
   }
 
   async createModerator() {
