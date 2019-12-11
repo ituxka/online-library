@@ -1,6 +1,7 @@
 import { IsString, Matches } from 'class-validator';
+import { SignInPayload, SignUpPayload } from '@online-library/api-interfaces';
 
-export class SignUpUserDTO {
+export class SignUpUserDTO implements SignUpPayload {
   @Matches(/.+@.+/, { message: 'invalid email' })
   readonly email: string;
 
@@ -8,5 +9,10 @@ export class SignUpUserDTO {
   readonly password: string;
 }
 
-export class SignInUserDTO extends SignUpUserDTO {
+export class SignInUserDTO implements SignInPayload {
+  @Matches(/.+@.+/, { message: 'invalid email' })
+  readonly email: string;
+
+  @IsString()
+  readonly password: string;
 }
