@@ -13,5 +13,3 @@ export interface User {
 }
 
 export type UserSafe = Omit<User, 'password'>;
-
-export type UserFromJWT = Pick<User, 'id' | 'email'>;

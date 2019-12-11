@@ -9,7 +9,7 @@ import {
 import { SignUpUserDTO } from '../user/dtos/create-user.dto';
 import { UserService } from '../user/user.service';
 import { AuthGuard } from '@nestjs/passport';
-import { UserFromJWT, UserSafe } from '@online-library/api-interfaces';
+import { UserSafe } from '@online-library/api-interfaces';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
@@ -36,7 +36,7 @@ export class AuthController {
   @Get('validate-token')
   @UseGuards(AuthGuard('jwt'))
   async validate(@Request() req) {
-    const user: UserFromJWT = req.user;
+    const user: UserSafe = req.user;
     const userFromDB = await this.userService.findOne(user.email);
     return this.userService.convertToSafeUser(userFromDB);
   }
