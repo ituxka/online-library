@@ -9,8 +9,9 @@ import {
 import { SignUpUserDTO } from '../user/dtos/create-user.dto';
 import { UserService } from '../user/user.service';
 import { AuthGuard } from '@nestjs/passport';
-import { UserSafe } from '@online-library/api-interfaces';
+import { UserRole, UserSafe } from '@online-library/api-interfaces';
 import { AuthService } from './auth.service';
+import { RolesGuard } from './guards/roles.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -39,5 +40,11 @@ export class AuthController {
     const user: UserSafe = req.user;
     const userFromDB = await this.userService.findOne(user.email);
     return this.userService.convertToSafeUser(userFromDB);
+  }
+
+  @Get('test-role')
+  @UseGuards(AuthGuard('jwt'), new RolesGuard([UserRole.MODERATOR]))
+  moderatorOnly(@Request() req) {
+    console.log('Yay, im in');
   }
 }
