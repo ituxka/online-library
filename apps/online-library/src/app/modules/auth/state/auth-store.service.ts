@@ -43,4 +43,8 @@ export class AuthStoreService {
       );
   }
 
+  logout() {
+    this.authStore.update(createInitialState());
+  }
+
 }

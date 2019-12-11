@@ -20,7 +20,13 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>Online Library</span>
-      <span style="margin-left: 200px">PRIVATE INFORMATION</span>
+
+      <span class="logout-button">
+        <button *ngIf="authQuery.isSignedIn$ | async; else signInLink" (click)="onLogout()" mat-raised-button color="warn">Sign out</button>
+        <ng-template #signInLink>
+          <a routerLink="/auth/signin" mat-raised-button color="accent">Sign in</a>
+        </ng-template>
+      </span>
     </mat-toolbar>
     <ng-content></ng-content>
   </mat-sidenav-content>
