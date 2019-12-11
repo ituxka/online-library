@@ -2,22 +2,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
-import { AuthQuery, AuthStore, AuthStoreService } from './state';
+import { AuthStoreService } from './state';
 import { SharedModule } from '../shared/shared.module';
-import { AuthGuard } from './auth.guard';
+import { IfSignedInDirective } from './if-signed-in.directive';
 
 @NgModule({
-  declarations: [],
+  declarations: [IfSignedInDirective],
   imports: [
     CommonModule,
     AuthRoutingModule,
     SharedModule,
   ],
   providers: [
-    AuthStore,
     AuthStoreService,
-    AuthQuery,
-    AuthGuard,
+  ],
+  exports: [
+    IfSignedInDirective,
   ],
 })
 export class AuthModule { }

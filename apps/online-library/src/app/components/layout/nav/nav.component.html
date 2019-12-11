@@ -6,7 +6,7 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="">Home</a>
-      <a mat-list-item routerLink="/auth">Authenticate</a>
+      <a *olIfSignedIn="false" mat-list-item routerLink="/auth">Authenticate</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -20,6 +20,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>Online Library</span>
+      <span *olIfSignedIn="true" style="margin-left: 200px">PRIVATE INFORMATION</span>
 
       <span class="logout-button">
         <button *ngIf="authQuery.isSignedIn$ | async; else signInLink" (click)="onLogout()" mat-raised-button color="warn">Sign out</button>
