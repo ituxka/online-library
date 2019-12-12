@@ -1,16 +1,12 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 import { UserRole } from '@online-library/api-interfaces';
+import { BaseModel } from '../base.entity';
 
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class User extends BaseModel {
 
   @Column({ unique: true })
   email: string;
@@ -24,10 +20,4 @@ export class User {
     default: UserRole.USER,
   })
   role: UserRole;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }
