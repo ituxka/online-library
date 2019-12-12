@@ -1,7 +1,7 @@
 import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
-import { USER_REPOSITORY } from './constants';
+import { USER_REPOSITORY } from './user.constants';
 import { UserRole, UserSafe } from '@online-library/api-interfaces';
 
 @Injectable()

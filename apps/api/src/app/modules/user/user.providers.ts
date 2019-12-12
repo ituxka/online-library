@@ -1,4 +1,4 @@
-import { USER_REPOSITORY } from './constants';
+import { USER_REPOSITORY } from './user.constants';
 import { Connection } from 'typeorm';
 import { User } from './user.entity';
 import { DATABASE_CONNECTION } from '../../database/constants';
