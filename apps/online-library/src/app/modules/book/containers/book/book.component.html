@@ -1,0 +1,19 @@
+<div class="book">
+  <form [formGroup]="bookForm" (ngSubmit)="onSubmit()" class="form book__form">
+
+    <h1>Create book</h1>
+
+    <mat-form-field>
+      <input
+        type="text"
+        matInput
+        placeholder="Title"
+        required>
+    </mat-form-field>
+
+    <div class="form__buttons">
+      <button (click)="onClear()" mat-raised-button color="accent">Clear</button>
+      <button type="submit" mat-raised-button color="primary">Submit</button>
+    </div>
+  </form>
+</div>
