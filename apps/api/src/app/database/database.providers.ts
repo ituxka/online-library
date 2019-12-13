@@ -3,6 +3,7 @@ import { DATABASE_CONNECTION } from './constants';
 import { User } from '../modules/user/user.entity';
 import { environment } from '../../environments/environment';
 import { Author } from '../modules/author/author.entity';
+import { Book } from '../modules/book/book.entity';
 
 export const databaseProviders = [
   {
@@ -17,6 +18,7 @@ export const databaseProviders = [
       entities: [
         User,
         Author,
+        Book,
       ],
       synchronize: true,
     }),
