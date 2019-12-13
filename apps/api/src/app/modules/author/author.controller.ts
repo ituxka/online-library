@@ -31,6 +31,13 @@ import { AuthorUniqueGuard } from './author-unique.guard';
       decorators: [UseGuards(AuthGuard('jwt'), new RolesGuard([UserRole.MODERATOR]))],
     },
   },
+  query: {
+    join: {
+      books: {
+        eager: true,
+      },
+    },
+  },
 })
 @Controller('author')
 export class AuthorController {
