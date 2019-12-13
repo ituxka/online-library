@@ -11,6 +11,7 @@ import { HomeComponent } from './containers/home/home.component';
 import { AuthModule } from './modules/auth/auth.module';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from '../environments/environment';
+import { BookModule } from './modules/book/book.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     MaterialModule,
     AuthModule,
+    BookModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
   ],
   providers: [],
