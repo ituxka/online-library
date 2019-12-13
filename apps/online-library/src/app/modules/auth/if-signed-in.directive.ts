@@ -1,14 +1,12 @@
 import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { AuthQuery } from './state';
-import { Subscription } from 'rxjs';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Directive({
   selector: '[olIfSignedIn]',
 })
 export class IfSignedInDirective implements OnInit, OnDestroy {
   @Input('olIfSignedIn') showIfSignedIn: boolean;
-
-  subscription: Subscription;
 
   constructor(
     private templateRef: TemplateRef<any>,
@@ -18,7 +16,8 @@ export class IfSignedInDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this.authQuery.isSignedIn$
+    this.authQuery.isSignedIn$
+      .pipe(untilDestroyed(this))
       .subscribe((isSignedIn) => {
         this.viewContainerRef.clear();
         switch (true) {
@@ -34,7 +33,7 @@ export class IfSignedInDirective implements OnInit, OnDestroy {
       });
   }
 
+  // must be present for untilDestroy operator
   ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }
