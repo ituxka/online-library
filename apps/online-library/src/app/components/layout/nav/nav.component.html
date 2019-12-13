@@ -21,6 +21,7 @@
       </button>
       <span>Online Library</span>
       <span *olIfSignedIn="true" style="margin-left: 200px">PRIVATE INFORMATION</span>
+      <span *olIfHasRoles="[roles.MODERATOR]" style="margin-left: 200px">PRIVATE ONLY FOR MODERATOR</span>
 
       <span class="logout-button">
         <button *ngIf="authQuery.isSignedIn$ | async; else signInLink" (click)="onLogout()" mat-raised-button color="warn">Sign out</button>

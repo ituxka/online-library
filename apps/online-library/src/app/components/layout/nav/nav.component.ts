@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthQuery, AuthStoreService } from '../../../modules/auth/state';
 import { Router } from '@angular/router';
+import { UserRole } from '@online-library/api-interfaces';
 
 @Component({
   selector: 'ol-nav',
@@ -10,6 +11,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
+  roles = UserRole;
+
   isHandset$ = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(res => res.matches),
