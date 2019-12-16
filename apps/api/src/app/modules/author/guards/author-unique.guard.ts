@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, HttpException, Inject, Injectable } from '@nestjs/common';
-import { Author } from './author.entity';
+import { Author } from '../author.entity';
 import { Repository } from 'typeorm';
-import { AUTHOR_REPOSITORY } from './author.constant';
+import { AUTHOR_REPOSITORY } from '../author.constant';
 
 @Injectable()
 export class AuthorUniqueGuard implements CanActivate {

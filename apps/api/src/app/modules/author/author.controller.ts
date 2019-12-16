@@ -5,7 +5,7 @@ import { Author } from './author.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { UserRole } from '@online-library/api-interfaces';
-import { AuthorUniqueGuard } from './author-unique.guard';
+import { AuthorUniqueGuard } from './guards/author-unique.guard';
 
 @Crud({
   model: {
