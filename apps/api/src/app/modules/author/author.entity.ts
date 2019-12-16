@@ -3,11 +3,12 @@ import { BaseModel } from '../base.entity';
 import { Book } from '../book/book.entity';
 import { CrudValidationGroups } from '@nestjsx/crud';
 import { IsISO8601, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
+import { IAuthor } from '@online-library/api-interfaces';
 
 const { CREATE, UPDATE } = CrudValidationGroups;
 
 @Entity('authors')
-export class Author extends BaseModel {
+export class Author extends BaseModel implements IAuthor {
   @IsOptional({ groups: [UPDATE] })
   @IsNotEmpty({ groups: [CREATE] })
   @IsString({ always: true })

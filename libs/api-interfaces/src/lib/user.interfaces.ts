@@ -3,13 +3,14 @@ export enum UserRole {
   USER = 'USER',
 }
 
-export interface User {
+export interface IUser {
   id: number;
+  createdAt: Date;
+  updatedAt: Date;
+
   email: string;
   password: string;
   role: UserRole;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
-export type UserSafe = Omit<User, 'password'>;
+export type UserSafe = Omit<IUser, 'password'>;

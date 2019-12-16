@@ -3,6 +3,7 @@ import { BaseModel } from '../base.entity';
 import { Author } from '../author/author.entity';
 import { IsBoolean, IsISO8601, IsNumber, IsOptional, IsString, MinLength } from 'class-validator';
 import { CrudValidationGroups } from '@nestjsx/crud';
+import { IBook } from '@online-library/api-interfaces';
 
 const { CREATE, UPDATE } = CrudValidationGroups;
 
@@ -16,7 +17,7 @@ const checkOverflow = `${columnNames.copiesInUse} + ${columnNames.copiesBooked} 
 @Entity()
 @Unique(['title', 'author'])
 @Check(checkOverflow)
-export class Book extends BaseModel {
+export class Book extends BaseModel implements IBook {
   @IsOptional({ groups: [UPDATE] })
   @IsString({ always: true })
   @MinLength(3, { always: true })
