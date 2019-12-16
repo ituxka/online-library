@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, CanActivate } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { AuthQuery } from './state';
+import { AuthQuery } from '../state';
 import { UserRole } from '@online-library/api-interfaces';
 
 @Injectable({ providedIn:'root' })
