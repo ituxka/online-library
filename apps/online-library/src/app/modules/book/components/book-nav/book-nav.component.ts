@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserRole } from '@online-library/api-interfaces';
 
 @Component({
   selector: 'ol-book-nav',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./book-nav.component.css'],
 })
 export class BookNavComponent implements OnInit {
+  roles = UserRole;
 
   constructor() { }
 

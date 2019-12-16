@@ -1,1 +1,1 @@
-<a routerLink="/book/create" mat-list-item>Create book</a>
+<a *olIfHasRoles="[roles.MODERATOR]" routerLink="/book/create" mat-list-item>Create book</a>

@@ -6,6 +6,7 @@ import { BookCreateComponent } from './containers/book-create/book-create.compon
 import { BookNavComponent } from './components/book-nav/book-nav.component';
 import { MaterialModule } from '../material/material.module';
 import { BookService } from './book.service';
+import { AuthModule } from '../auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { BookService } from './book.service';
     CommonModule,
     BookRoutingModule,
     MaterialModule,
+    AuthModule,
   ],
   providers: [
     BookService,
