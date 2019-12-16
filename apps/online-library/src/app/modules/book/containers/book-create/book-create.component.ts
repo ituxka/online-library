@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookService } from '../../book.service';
-import { IBook } from '@online-library/api-interfaces';
+import { IAuthor, IBook } from '@online-library/api-interfaces';
 import { SnackbarService } from '../../../shared/services/snackbar/snackbar.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ol-book',
@@ -12,12 +13,15 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
 })
 export class BookCreateComponent implements OnInit, OnDestroy {
   bookForm: FormGroup;
+  authors$: Observable<IAuthor[]>;
 
   constructor(
     private fb: FormBuilder,
     private bookService: BookService,
     private snackbarService: SnackbarService,
-  ) { }
+  ) {
+    this.authors$ = this.bookService.getAllAuthors();
+  }
 
   initForm() {
     this.bookForm = this.fb.group({
@@ -52,7 +56,7 @@ export class BookCreateComponent implements OnInit, OnDestroy {
     this.bookService.create(book)
       .pipe(untilDestroyed(this))
       .subscribe({
-        next: (createdBook) => {
+        next: () => {
           this.snackbarService.openSuccess('Successfully created');
           this.initForm();
         },

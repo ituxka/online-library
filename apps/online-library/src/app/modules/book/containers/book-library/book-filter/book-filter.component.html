@@ -1,0 +1,33 @@
+<div style="padding-right: 20px">
+
+  <h3>Filters:</h3>
+
+  <mat-form-field>
+    <input
+      [(ngModel)]="filters.title.value"
+      matInput
+      type="text"
+      placeholder="Title">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select
+      [(ngModel)]="filters.authors.value"
+      multiple
+      placeholder="Authors">
+      <mat-option *ngFor="let author of authors" [value]="author.id">{{author.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="mat-form-field-wrapper">
+    <mat-checkbox
+      [(ngModel)]="filters.isAvailable.value"
+      color="primary"
+    >Available</mat-checkbox>
+  </div>
+
+  <div fxLayout fxLayoutAlign="space-between">
+    <button (click)="onReset()" mat-raised-button color="warn">Reset filters</button>
+    <button (click)="onSubmit()" mat-raised-button color="primary">Apply filters</button>
+  </div>
+</div>

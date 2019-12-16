@@ -17,7 +17,7 @@
         formControlName="author"
         placeholder="Author"
         required>
-        <mat-option *ngFor="let author of [{id: 1, name: 'Vitaliy Zykov'}]" [value]="author.id">
+        <mat-option *ngFor="let author of (authors$ | async)" [value]="author.id">
           {{author.name}}
         </mat-option>
       </mat-select>

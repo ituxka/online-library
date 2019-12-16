@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  MatButtonModule, MatCheckboxModule, MatDatepickerModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule,
   MatFormFieldModule,
   MatIconModule, MatInputModule,
   MatListModule, MatNativeDateModule, MatSelectModule,
@@ -10,6 +10,7 @@ import {
   MatToolbarModule,
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [],
@@ -28,6 +29,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatNativeDateModule,
     MatDatepickerModule,
     MatCheckboxModule,
+    MatCardModule,
+    MatChipsModule,
+    FlexLayoutModule,
   ],
   exports: [
     ReactiveFormsModule,
@@ -43,6 +47,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatNativeDateModule,
     MatDatepickerModule,
     MatCheckboxModule,
+    MatCardModule,
+    MatChipsModule,
+    FlexLayoutModule,
   ],
 })
 export class MaterialModule { }

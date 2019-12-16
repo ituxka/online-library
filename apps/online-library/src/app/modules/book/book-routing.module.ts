@@ -5,6 +5,7 @@ import { BookCreateComponent } from './containers/book-create/book-create.compon
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { UserRole } from '@online-library/api-interfaces';
 import { AuthGuard } from '../auth/guards/auth.guard';
+import { BookLibraryComponent } from './containers/book-library/book-library.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
     data: {
       roles: [UserRole.MODERATOR],
     },
+  },
+  {
+    path: 'library',
+    component: BookLibraryComponent,
   },
 ];
 

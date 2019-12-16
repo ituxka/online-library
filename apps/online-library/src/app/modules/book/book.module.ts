@@ -7,17 +7,26 @@ import { BookNavComponent } from './components/book-nav/book-nav.component';
 import { MaterialModule } from '../material/material.module';
 import { BookService } from './book.service';
 import { AuthModule } from '../auth/auth.module';
+import { BookLibraryComponent } from './containers/book-library/book-library.component';
+import { BookListComponent } from './containers/book-library/book-list/book-list.component';
+import { BookFilterComponent } from './containers/book-library/book-filter/book-filter.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     BookCreateComponent,
     BookNavComponent,
+    BookLibraryComponent,
+    BookFilterComponent,
+    BookListComponent,
+    BookFilterComponent,
   ],
   imports: [
     CommonModule,
     BookRoutingModule,
     MaterialModule,
     AuthModule,
+    FormsModule,
   ],
   providers: [
     BookService,

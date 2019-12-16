@@ -1,0 +1,11 @@
+<div fxLayout style="padding: 20px">
+  <div fxFlex="1 1 300px">
+    <ol-book-filter
+      [authors]="authors$ | async"
+      (newFilterEvent)="onFilter($event)"
+    ></ol-book-filter>
+  </div>
+  <div fxFlex="4 1 auto">
+    <ol-book-list [books]="booksWithFilter$ | async"></ol-book-list>
+  </div>
+</div>
