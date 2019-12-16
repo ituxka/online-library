@@ -2,11 +2,11 @@ import {
   Entity,
   Column,
 } from 'typeorm';
-import { UserRole } from '@online-library/api-interfaces';
+import { IUser, UserRole } from '@online-library/api-interfaces';
 import { BaseModel } from '../base.entity';
 
 @Entity()
-export class User extends BaseModel {
+export class User extends BaseModel implements IUser {
 
   @Column({ unique: true })
   email: string;
