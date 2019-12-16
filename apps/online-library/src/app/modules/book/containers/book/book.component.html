@@ -5,10 +5,64 @@
 
     <mat-form-field>
       <input
+        formControlName="title"
         type="text"
         matInput
         placeholder="Title"
         required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select
+        formControlName="author"
+        placeholder="Author"
+        required>
+        <mat-option *ngFor="let author of [{id: 1, name: 'Vitaliy Zykov'}]" [value]="author.id">
+          {{author.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        formControlName="published"
+        matInput
+        [matDatepicker]="published"
+        placeholder="Published"
+        required>
+      <mat-datepicker-toggle matSuffix [for]="published"></mat-datepicker-toggle>
+      <mat-datepicker #published></mat-datepicker>
+    </mat-form-field>
+
+    <mat-checkbox
+      formControlName="isAvailableToBook"
+      class="mat-form-field-wrapper"
+      color="primary"
+    >Available to book?
+    </mat-checkbox>
+
+    <mat-form-field>
+      <input
+        formControlName="copies"
+        matInput
+        type="number"
+        placeholder="Copies">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        formControlName="copiesInUse"
+        matInput
+        type="number"
+        placeholder="Copies in use">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        formControlName="copiesBooked"
+        matInput
+        type="number"
+        placeholder="Copies booked">
     </mat-form-field>
 
     <div class="form__buttons">

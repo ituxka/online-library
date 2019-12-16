@@ -5,6 +5,7 @@ import { BookRoutingModule } from './book-routing.module';
 import { BookComponent } from './containers/book/book.component';
 import { BookNavComponent } from './components/book-nav/book-nav.component';
 import { MaterialModule } from '../material/material.module';
+import { BookService } from './book.service';
 
 @NgModule({
   declarations: [BookComponent, BookNavComponent],
@@ -12,6 +13,9 @@ import { MaterialModule } from '../material/material.module';
     CommonModule,
     BookRoutingModule,
     MaterialModule,
+  ],
+  providers: [
+    BookService,
   ],
   exports: [
     BookNavComponent,

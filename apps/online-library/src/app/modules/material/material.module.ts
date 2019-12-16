@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCheckboxModule, MatDatepickerModule,
   MatFormFieldModule,
   MatIconModule, MatInputModule,
-  MatListModule,
+  MatListModule, MatNativeDateModule, MatSelectModule,
   MatSidenavModule,
   MatSnackBarModule,
   MatToolbarModule,
@@ -24,6 +24,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatCheckboxModule,
   ],
   exports: [
     ReactiveFormsModule,
@@ -35,6 +39,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatCheckboxModule,
   ],
 })
 export class MaterialModule { }
