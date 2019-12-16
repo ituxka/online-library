@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { BookComponent } from './containers/book/book.component';
+import { BookCreateComponent } from './containers/book-create/book-create.component';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { UserRole } from '@online-library/api-interfaces';
 import { AuthGuard } from '../auth/guards/auth.guard';
@@ -9,7 +9,7 @@ import { AuthGuard } from '../auth/guards/auth.guard';
 const routes: Routes = [
   {
     path: 'create',
-    component: BookComponent,
+    component: BookCreateComponent,
     canActivate: [AuthGuard, RolesGuard],
     data: {
       roles: [UserRole.MODERATOR],

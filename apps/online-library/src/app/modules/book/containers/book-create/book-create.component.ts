@@ -7,10 +7,10 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component({
   selector: 'ol-book',
-  templateUrl: './book.component.html',
-  styleUrls: ['./book.component.css'],
+  templateUrl: './book-create.component.html',
+  styleUrls: ['./book-create.component.css'],
 })
-export class BookComponent implements OnInit, OnDestroy {
+export class BookCreateComponent implements OnInit, OnDestroy {
   bookForm: FormGroup;
 
   constructor(
