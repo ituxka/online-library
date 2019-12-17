@@ -7,6 +7,8 @@ import { IBook } from '@online-library/api-interfaces';
   styleUrls: ['./book-list.component.css'],
 })
 export class BookListComponent {
+  imagePlaceholder = 'https://via.placeholder.com/1000';
+
   @Input() books: IBook[] = [];
 
   constructor() { }
