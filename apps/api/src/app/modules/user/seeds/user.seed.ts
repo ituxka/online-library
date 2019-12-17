@@ -4,8 +4,6 @@ import { environment } from '../../../../environments/environment';
 import { UserRole } from '@online-library/api-interfaces';
 import * as bcrypt from 'bcrypt';
 
-export const USER_SEEDER = 'USER_SEEDER';
-
 @Injectable()
 export class UserSeederService implements OnApplicationBootstrap {
   constructor(
