@@ -11,6 +11,7 @@ import { BookLibraryComponent } from './containers/book-library/book-library.com
 import { BookListComponent } from './containers/book-library/book-list/book-list.component';
 import { BookFilterComponent } from './containers/book-library/book-filter/book-filter.component';
 import { FormsModule } from '@angular/forms';
+import { BookDetailComponent } from './containers/book-detail/book-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     BookFilterComponent,
     BookListComponent,
     BookFilterComponent,
+    BookDetailComponent,
   ],
   imports: [
     CommonModule,

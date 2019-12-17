@@ -1,0 +1,38 @@
+<div *ngIf="(book$ | async) as book; else notFound" style="padding: 20px">
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="author-avatar"></div>
+      <mat-card-title>{{book.title}}</mat-card-title>
+      <mat-card-subtitle>{{book.author.name}}</mat-card-subtitle>
+      <div>
+        <ng-container *ngIf="book.isAvailableToBook; else notAvailable">
+          <span style="color: #36a423;">Available</span>
+        </ng-container>
+        <ng-template #notAvailable>
+          <span style="color: #d63b3b">Not available</span>
+        </ng-template>
+      </div>
+    </mat-card-header>
+    <img
+      [src]="book.coverImage || imagePlaceholder"
+      mat-card-image
+      alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+        bred for hunting.
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card>
+
+</div>
+
+<ng-template #notFound>
+  Book not found
+</ng-template>

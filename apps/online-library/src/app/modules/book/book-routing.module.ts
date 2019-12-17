@@ -6,6 +6,7 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { UserRole } from '@online-library/api-interfaces';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { BookLibraryComponent } from './containers/book-library/book-library.component';
+import { BookDetailComponent } from './containers/book-detail/book-detail.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'library',
     component: BookLibraryComponent,
+  },
+  {
+    path: ':id',
+    component: BookDetailComponent,
   },
 ];
 
