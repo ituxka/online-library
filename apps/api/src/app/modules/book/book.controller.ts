@@ -1,5 +1,5 @@
 import { BookService } from './book.service';
-import { Controller, UseGuards } from '@nestjs/common';
+import { Controller, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import {
   Crud,
   CrudController,
@@ -13,6 +13,8 @@ import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { UserRole } from '@online-library/api-interfaces';
 import { handleCrudError } from './crud-error.handler';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { bookStorage } from './book.storage';
 
 @Crud({
   model: {
@@ -54,12 +56,18 @@ export class BookController implements CrudController<Book> {
   }
 
   @Override()
+  @UseInterceptors(FileInterceptor('file', {
+    storage: bookStorage,
+  }))
   async createOne(
     @ParsedRequest() req: CrudRequest,
-    @ParsedBody() dto: Book,
-  ): Promise<Book> {
+    @ParsedBody() body: { data: string },
+    @UploadedFile() file,
+  ) {
+    const bookFromRequest = JSON.parse(body.data) as Book;
+    bookFromRequest.coverImage = file.path;
     try {
-      const book = await this.base.createOneBase(req, dto);
+      const book = await this.base.createOneBase(req, bookFromRequest);
       return book;
     } catch (e) {
       handleCrudError(e);
