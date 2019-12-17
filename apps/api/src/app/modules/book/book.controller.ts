@@ -65,7 +65,9 @@ export class BookController implements CrudController<Book> {
     @UploadedFile() file,
   ) {
     const bookFromRequest = JSON.parse(body.data) as Book;
-    bookFromRequest.coverImage = file.path;
+    if (file != null) {
+      bookFromRequest.coverImage = file.path;
+    }
     try {
       const book = await this.base.createOneBase(req, bookFromRequest);
       return book;
