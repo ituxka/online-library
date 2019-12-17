@@ -15,8 +15,14 @@ export class BookService {
     private http: HttpClient,
   ) { }
 
-  create(book: Partial<IBook>): Observable<IBook> {
-    return this.http.post<IBook>(`${this.url}book`, book);
+  create(book: Partial<IBook>, coverImageFile: File | null): Observable<IBook> {
+    const fd = new FormData();
+    fd.append('data', JSON.stringify(book));
+    if (coverImageFile != null) {
+      fd.append('file', coverImageFile);
+    }
+
+    return this.http.post<IBook>(`${this.url}book`, fd);
   }
 
   getAll(): Observable<IBook[]> {

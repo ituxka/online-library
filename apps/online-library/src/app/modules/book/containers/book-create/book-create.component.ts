@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookService } from '../../book.service';
 import { IAuthor, IBook } from '@online-library/api-interfaces';
@@ -14,6 +14,10 @@ import { Observable } from 'rxjs';
 export class BookCreateComponent implements OnInit, OnDestroy {
   bookForm: FormGroup;
   authors$: Observable<IAuthor[]>;
+  selectedCoverImageFile: File = null;
+
+  @ViewChild('inputCover', { static: false }) inputCoverEl: ElementRef;
+  @ViewChild('previewCover', { static: false }) previewCoverImageEl: ElementRef;
 
   constructor(
     private fb: FormBuilder,
@@ -53,7 +57,7 @@ export class BookCreateComponent implements OnInit, OnDestroy {
     }
 
     const book = this.bookForm.value as Partial<IBook>;
-    this.bookService.create(book)
+    this.bookService.create(book, this.selectedCoverImageFile)
       .pipe(untilDestroyed(this))
       .subscribe({
         next: () => {
@@ -64,5 +68,31 @@ export class BookCreateComponent implements OnInit, OnDestroy {
           this.snackbarService.openError(JSON.stringify(error.message));
         },
       });
+  }
+
+  onResetCover() {
+    this.selectedCoverImageFile = null;
+
+    const imageEl = this.previewCoverImageEl.nativeElement as HTMLImageElement;
+    imageEl.src = '';
+  }
+
+  onCoverSelected(files: FileList | null) {
+    if (files == null) {
+      return;
+    }
+
+    this.selectedCoverImageFile = files[0];
+    this.insertImageCover(this.selectedCoverImageFile);
+  }
+
+  private insertImageCover(file: File) {
+    const fileReader = new FileReader();
+    fileReader.onload = (() => {
+      const imgEl = this.previewCoverImageEl.nativeElement as HTMLImageElement;
+      imgEl.src = fileReader.result as string;
+    });
+
+    fileReader.readAsDataURL(file);
   }
 }
