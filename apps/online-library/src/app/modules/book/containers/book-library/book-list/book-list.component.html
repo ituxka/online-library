@@ -30,8 +30,7 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
+          <a [routerLink]="'/book/' + book.id" mat-raised-button>View</a>
         </mat-card-actions>
       </mat-card>
 
