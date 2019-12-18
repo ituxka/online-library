@@ -14,7 +14,7 @@ export class UserService {
 
   async create(email: string, password: string, role: UserRole = UserRole.USER) {
     const checkUser = await this.findOne(email);
-    if (checkUser !== undefined) {
+    if (checkUser != null) {
       throw new HttpException('email already exists', 400);
     }
 

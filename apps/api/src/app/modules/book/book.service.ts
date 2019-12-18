@@ -16,9 +16,9 @@ export class BookService extends TypeOrmCrudService<Book>{
   }
 
   async updateAvailability(book: IBook) {
-    const isAvailable = this.bookingService.checkAvailability(book);
+    const isAvailable = this.bookingService.isAvailableToOrder(book);
     const bookFromDB = await this.bookRepository.findOne({ id: book.id });
-    bookFromDB.isAvailableToBook = isAvailable;
+    bookFromDB.isAvailableToOrder = isAvailable;
     return this.bookRepository.save(bookFromDB);
   }
 }

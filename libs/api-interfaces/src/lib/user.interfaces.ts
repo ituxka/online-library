@@ -14,7 +14,7 @@ export interface IUser {
   password: string;
   role: UserRole;
 
-  bookedBooks: IBook[];
+  orderedBooks: IBook[];
 }
 
 export type IUserSafe = Omit<IUser, 'password'>;

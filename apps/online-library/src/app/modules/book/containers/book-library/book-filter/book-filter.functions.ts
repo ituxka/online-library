@@ -33,6 +33,6 @@ export const isAvailable = (isMarked: boolean): BookFilterFn => {
       return true;
     }
 
-    return book.isAvailableToBook === isMarked;
+    return book.isAvailableToOrder === isMarked;
   };
 };

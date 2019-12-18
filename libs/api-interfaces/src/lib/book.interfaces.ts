@@ -9,11 +9,11 @@ export interface IBook {
   title: string;
   author: IAuthor;
   published: Date;
-  isAvailableToBook: boolean;
+  isAvailableToOrder: boolean;
   coverImage: string;
   copies: number;
   copiesInUse: number;
-  copiesBooked: number;
+  copiesOrdered: number;
 
   holders: IUser[];
 }

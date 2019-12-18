@@ -6,7 +6,7 @@
       <mat-card-title>{{book.title}}</mat-card-title>
       <mat-card-subtitle>{{book.author.name}}</mat-card-subtitle>
       <div>
-        <ng-container *ngIf="book.isAvailableToBook; else notAvailable">
+        <ng-container *ngIf="book.isAvailableToOrder; else notAvailable">
           <span style="color: #36a423;">Available</span>
         </ng-container>
         <ng-template #notAvailable>
@@ -30,12 +30,12 @@
 
       <div *olIfHasRoles="[roles.USER]">
         <button
-          *ngIf="book.isAvailableToBook; else notAvailableToBookText"
+          *ngIf="book.isAvailableToOrder; else notAvailableToOrderText"
           (click)="onCreateOrder(book.id)"
           mat-raised-button
         >BOOK</button>
-        <ng-template #notAvailableToBookText>
-          <button mat-raised-button color="warn" disabled>NOT AVAILABLE TO BOOK</button>
+        <ng-template #notAvailableToOrderText>
+          <button mat-raised-button color="warn" disabled>NOT AVAILABLE TO ORDER</button>
         </ng-template>
       </div>
 

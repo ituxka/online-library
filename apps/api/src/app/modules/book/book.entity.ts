@@ -10,10 +10,10 @@ const { CREATE, UPDATE } = CrudValidationGroups;
 
 const columnNames = {
   copiesInUse: 'copies_in_use',
-  copiesBooked: 'copies_booked',
+  copiesOrdered: 'copies_ordered',
 };
 
-const checkOverflow = `${columnNames.copiesInUse} + ${columnNames.copiesBooked} <= copies`;
+const checkOverflow = `${columnNames.copiesInUse} + ${columnNames.copiesOrdered} <= copies`;
 
 @Entity()
 @Unique(['title', 'author'])
@@ -40,7 +40,7 @@ export class Book extends BaseModel implements IBook {
   @Column({
     default: false,
   })
-  isAvailableToBook: boolean;
+  isAvailableToOrder: boolean;
 
   @IsOptional({ groups: [CREATE, UPDATE] })
   @Column({ nullable: true })
@@ -63,11 +63,11 @@ export class Book extends BaseModel implements IBook {
   @IsNumber({}, { always: true })
   @Column({
     default: 0,
-    name: columnNames.copiesBooked,
+    name: columnNames.copiesOrdered,
   })
-  copiesBooked: number;
+  copiesOrdered: number;
 
-  @ManyToMany('User', 'bookedBooks')
+  @ManyToMany('User', 'orderedBooks')
   @JoinTable()
   holders: User[];
 }

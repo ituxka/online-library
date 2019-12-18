@@ -24,5 +24,5 @@ export class User extends BaseModel implements IUser {
   role: UserRole;
 
   @ManyToMany('Book', 'holders')
-  bookedBooks: Book[];
+  orderedBooks: Book[];
 }

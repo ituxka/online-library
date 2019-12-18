@@ -10,7 +10,7 @@
           <mat-card-title>{{book.title}}</mat-card-title>
           <mat-card-subtitle>{{book.author.name}}</mat-card-subtitle>
           <div>
-            <ng-container *ngIf="book.isAvailableToBook; else notAvailable">
+            <ng-container *ngIf="book.isAvailableToOrder; else notAvailable">
               <span style="color: #36a423;">Available</span>
             </ng-container>
             <ng-template #notAvailable>

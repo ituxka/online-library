@@ -22,4 +22,10 @@ export class AuthQuery extends Query<AuthState>{
     const { user } = this.getValue();
     return user && user.role;
   }
+
+  userId(): number | null {
+    const { user } = this.getValue();
+    return user && user.id;
+  }
+
 }

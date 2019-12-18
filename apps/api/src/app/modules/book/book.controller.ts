@@ -11,7 +11,7 @@ import {
 import { Book } from './book.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../auth/guards/roles.guard';
-import { UserRole } from '@online-library/api-interfaces';
+import { IBook, UserRole } from '@online-library/api-interfaces';
 import { handleCrudError } from './crud-error.handler';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { bookStorage } from './book.storage';
@@ -64,7 +64,7 @@ export class BookController implements CrudController<Book> {
     @ParsedBody() body: { data: string },
     @UploadedFile() file,
   ) {
-    const bookFromRequest = JSON.parse(body.data) as Book;
+    const bookFromRequest = JSON.parse(body.data) as IBook;
     if (file != null) {
       bookFromRequest.coverImage = file.path;
     }

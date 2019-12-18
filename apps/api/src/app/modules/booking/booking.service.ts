@@ -20,7 +20,7 @@ export class BookingService {
     const user = await this.userRepository.findOne({ id: userId }, { relations: ['bookedBooks'] });
     const book = await this.bookRepository.findOne({ id: bookId });
 
-    if (!this.isAvailableToBook(book)) {
+    if (!this.isAvailableToOrder(book)) {
       throw new HttpException('Could not order a book', HttpStatus.BAD_REQUEST);
     }
 
@@ -33,11 +33,7 @@ export class BookingService {
   }
 
   private isOrderAlreadyExists(user: IUserSafe, book: IBook): boolean {
-    return user.bookedBooks.find(userBook => userBook.id === book.id) != null;
-  }
-
-  private isAvailableToBook(book: IBook): boolean {
-    return book.copiesBooked + book.copiesInUse < book.copies;
+    return user.orderedBooks.find(userBook => userBook.id === book.id) != null;
   }
 
   private async updateRelations(user: IUser, book: IBook): Promise<IUser> {
@@ -59,7 +55,7 @@ export class BookingService {
     updatedBook: IBook,
     transactionEntityManager: EntityManager,
   ): Promise<IUser> {
-    user.bookedBooks.push(updatedBook);
+    user.orderedBooks.push(updatedBook);
     const updatedUser = await transactionEntityManager.save(user);
     return updatedUser;
   }
@@ -67,13 +63,13 @@ export class BookingService {
   private async updateBookCopiesStatus(
     book: IBook, transactionEntityManager: EntityManager,
   ): Promise<IBook> {
-    book.copiesBooked += 1;
-    book.isAvailableToBook = this.checkAvailability(book);
+    book.copiesOrdered += 1;
+    book.isAvailableToOrder = this.isAvailableToOrder(book);
     const updatedBook = await transactionEntityManager.save(book);
     return updatedBook;
   }
 
-  checkAvailability(book: IBook): boolean {
-    return book.copiesBooked + book.copiesInUse < book.copies;
+  isAvailableToOrder(book: IBook): boolean {
+    return book.copiesOrdered + book.copiesInUse < book.copies;
   }
 }
