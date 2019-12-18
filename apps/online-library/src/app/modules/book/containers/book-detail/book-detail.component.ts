@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
 import { BookService } from '../../book.service';
 import { IBook, UserRole } from '@online-library/api-interfaces';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
@@ -27,12 +27,14 @@ export class BookDetailComponent implements OnDestroy {
       map(idAsString => parseInt(idAsString, 10)),
       filter(parsed => !isNaN(parsed)),
       switchMap(id => this.bookService.getById(id)),
+      shareReplay(),
     );
 
   isAvailableToOrder$ = this.book$.pipe(
-    map(book =>
-      book.holders.find(holder => holder.id !== this.authQuery.userId()),
-    ),
+    map((book) => {
+      const orderedBooks = this.authQuery.getOrderedBooks();
+      return book.isAvailableToOrder && !this.bookService.isAlreadyOrdered(orderedBooks, book.id);
+    }),
   );
 
   imagePlaceholder = 'https://via.placeholder.com/1000';

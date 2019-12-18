@@ -25,6 +25,10 @@ export class BookService {
     return this.http.post<IBook>(`${this.url}book`, fd);
   }
 
+  isAlreadyOrdered(orderedBooks: IBook[], bookId: number): boolean {
+    return orderedBooks.find(orderedBook => orderedBook.id === bookId) != null;
+  }
+
   getById(id: number): Observable<IBook> {
     return this.http.get<IBook>(`${this.url}book/${id}`);
   }

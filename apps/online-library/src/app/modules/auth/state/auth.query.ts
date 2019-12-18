@@ -1,7 +1,7 @@
 import { Query, toBoolean } from '@datorama/akita';
 import { AuthState, AuthStore } from './auth.store';
 import { Injectable } from '@angular/core';
-import { UserRole } from '@online-library/api-interfaces';
+import { IBook, UserRole } from '@online-library/api-interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class AuthQuery extends Query<AuthState>{
@@ -26,6 +26,15 @@ export class AuthQuery extends Query<AuthState>{
   userId(): number | null {
     const { user } = this.getValue();
     return user && user.id;
+  }
+
+  getOrderedBooks(): IBook[] {
+    const { user } = this.getValue();
+    if (user == null || user.orderedBooks == null) {
+      return [];
+    }
+
+    return user.orderedBooks;
   }
 
 }
