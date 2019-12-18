@@ -1,7 +1,7 @@
 import { Check, Column, Entity, JoinTable, ManyToMany, ManyToOne, Unique } from 'typeorm';
 import { BaseModel } from '../base.entity';
 import { Author } from '../author/author.entity';
-import { IsBoolean, IsISO8601, IsNumber, IsOptional, IsString, MinLength } from 'class-validator';
+import { IsISO8601, IsNumber, IsOptional, IsString, MinLength } from 'class-validator';
 import { CrudValidationGroups } from '@nestjsx/crud';
 import { IBook } from '@online-library/api-interfaces';
 import { User } from '../user/user.entity';
@@ -35,8 +35,6 @@ export class Book extends BaseModel implements IBook {
   @Column()
   published: Date;
 
-  @IsOptional({ groups: [CREATE, UPDATE] })
-  @IsBoolean({ always: true })
   @Column({
     default: false,
   })
@@ -46,7 +44,7 @@ export class Book extends BaseModel implements IBook {
   @Column({ nullable: true })
   coverImage: string;
 
-  @IsOptional({ groups: [CREATE, UPDATE] })
+  @IsOptional({ groups: [UPDATE] })
   @IsNumber({}, { always: true })
   @Column({ default: 0 })
   copies: number;

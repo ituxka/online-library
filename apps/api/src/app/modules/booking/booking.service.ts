@@ -70,6 +70,13 @@ export class BookingService {
   }
 
   isAvailableToOrder(book: IBook): boolean {
-    return book.copiesOrdered + book.copiesInUse < book.copies;
+    const normalizedBook = this.normalizeIfEmpty(book);
+    return normalizedBook.copiesOrdered + normalizedBook.copiesInUse < normalizedBook.copies;
+  }
+
+  private normalizeIfEmpty(book: IBook): IBook {
+    book.copiesOrdered = book.copiesOrdered || 0;
+    book.copiesInUse = book.copiesInUse || 0;
+    return book;
   }
 }

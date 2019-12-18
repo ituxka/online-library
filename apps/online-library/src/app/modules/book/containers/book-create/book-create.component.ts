@@ -32,10 +32,7 @@ export class BookCreateComponent implements OnInit, OnDestroy {
       title: [null, [Validators.required]],
       author: [null, [Validators.required]],
       published: [null, [Validators.required]],
-      isAvailableToBook: [false, []],
       copies: [0, []],
-      copiesInUse: [0, []],
-      copiesBooked: [0, []],
     });
   }
 
