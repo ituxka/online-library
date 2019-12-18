@@ -4,7 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { pipe } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { AuthResult, SignInPayload, SignUpPayload, UserSafe } from '@online-library/api-interfaces';
+import {
+  AuthResult,
+  SignInPayload,
+  SignUpPayload,
+  IUserSafe,
+} from '@online-library/api-interfaces';
 import { setLoading } from '@datorama/akita';
 import { AuthQuery } from './auth.query';
 
@@ -45,9 +50,9 @@ export class AuthStoreService {
       );
   }
 
-  validateToken(): Promise<UserSafe> {
+  validateToken(): Promise<IUserSafe> {
     return this.http
-      .get<UserSafe>(`${this.url}auth/validate-token`, {
+      .get<IUserSafe>(`${this.url}auth/validate-token`, {
         headers: {
           Authorization: `Bearer ${this.authQuery.getValue().token}`,
         },

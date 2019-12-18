@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
-import { AuthResult, JwtPayload, UserSafe } from '@online-library/api-interfaces';
+import { AuthResult, JwtPayload, IUserSafe } from '@online-library/api-interfaces';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
@@ -34,7 +34,7 @@ export class AuthService {
     return this.signIn(userSafe);
   }
 
-  async signIn(user: UserSafe): Promise<AuthResult> {
+  async signIn(user: IUserSafe): Promise<AuthResult> {
     const payload = { user } as JwtPayload;
 
     return {

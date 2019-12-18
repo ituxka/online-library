@@ -1,5 +1,5 @@
 import { CanActivate, ExecutionContext } from '@nestjs/common';
-import { UserRole, UserSafe } from '@online-library/api-interfaces';
+import { UserRole, IUserSafe } from '@online-library/api-interfaces';
 
 export class RolesGuard implements CanActivate {
   constructor(
@@ -13,7 +13,7 @@ export class RolesGuard implements CanActivate {
     }
 
     const request = context.switchToHttp().getRequest();
-    const user = request.user as UserSafe;
+    const user = request.user as IUserSafe;
     if (!user) {
       return false;
     }

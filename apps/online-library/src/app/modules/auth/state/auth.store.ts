@@ -1,10 +1,10 @@
 import { Store, StoreConfig } from '@datorama/akita';
 import { Injectable } from '@angular/core';
-import { UserSafe } from '@online-library/api-interfaces';
+import { IUserSafe } from '@online-library/api-interfaces';
 
 export interface AuthState {
   token: string | null;
-  user: UserSafe | null;
+  user: IUserSafe | null;
 }
 
 export const createInitialState = (): AuthState => ({

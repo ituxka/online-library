@@ -9,7 +9,7 @@ import {
 import { SignUpUserDTO } from '../user/dtos/create-user.dto';
 import { UserService } from '../user/user.service';
 import { AuthGuard } from '@nestjs/passport';
-import { UserRole, UserSafe } from '@online-library/api-interfaces';
+import { UserRole, IUserSafe } from '@online-library/api-interfaces';
 import { AuthService } from './auth.service';
 import { RolesGuard } from './guards/roles.guard';
 
@@ -30,14 +30,14 @@ export class AuthController {
   @Post('signin')
   @UseGuards(AuthGuard('local'))
   signIn(@Request() req) {
-    const user: UserSafe = req.user;
+    const user: IUserSafe = req.user;
     return this.authService.signIn(user);
   }
 
   @Get('validate-token')
   @UseGuards(AuthGuard('jwt'))
   async validate(@Request() req) {
-    const user: UserSafe = req.user;
+    const user: IUserSafe = req.user;
     const userFromDB = await this.userService.findOne(user.email);
     return this.userService.convertToSafeUser(userFromDB);
   }

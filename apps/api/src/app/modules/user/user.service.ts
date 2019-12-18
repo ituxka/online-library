@@ -2,7 +2,7 @@ import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { USER_REPOSITORY } from './user.constants';
-import { UserRole, UserSafe } from '@online-library/api-interfaces';
+import { UserRole, IUserSafe } from '@online-library/api-interfaces';
 
 @Injectable()
 export class UserService {
@@ -26,7 +26,7 @@ export class UserService {
     return this.userRepository.findOne({ email });
   }
 
-  convertToSafeUser(user: User): UserSafe {
+  convertToSafeUser(user: User): IUserSafe {
     const { password: _, ...result } = user;
     return result;
   }
