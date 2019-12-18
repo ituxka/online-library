@@ -1,3 +1,5 @@
+import { IBook } from './book.interfaces';
+
 export enum UserRole {
   MODERATOR = 'MODERATOR',
   USER = 'USER',
@@ -11,6 +13,8 @@ export interface IUser {
   email: string;
   password: string;
   role: UserRole;
+
+  bookedBooks: IBook[];
 }
 
-export type UserSafe = Omit<IUser, 'password'>;
+export type IUserSafe = Omit<IUser, 'password'>;

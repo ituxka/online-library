@@ -1,4 +1,5 @@
 import { IAuthor } from './author.interfaces';
+import { IUser } from './user.interfaces';
 
 export interface IBook {
   id: number;
@@ -13,4 +14,6 @@ export interface IBook {
   copies: number;
   copiesInUse: number;
   copiesBooked: number;
+
+  holders: IUser[];
 }

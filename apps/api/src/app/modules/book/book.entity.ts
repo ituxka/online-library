@@ -1,9 +1,10 @@
-import { Check, Column, Entity, ManyToOne, Unique } from 'typeorm';
+import { Check, Column, Entity, JoinTable, ManyToMany, ManyToOne, Unique } from 'typeorm';
 import { BaseModel } from '../base.entity';
 import { Author } from '../author/author.entity';
 import { IsBoolean, IsISO8601, IsNumber, IsOptional, IsString, MinLength } from 'class-validator';
 import { CrudValidationGroups } from '@nestjsx/crud';
 import { IBook } from '@online-library/api-interfaces';
+import { User } from '../user/user.entity';
 
 const { CREATE, UPDATE } = CrudValidationGroups;
 
@@ -66,4 +67,7 @@ export class Book extends BaseModel implements IBook {
   })
   copiesBooked: number;
 
+  @ManyToMany('User', 'bookedBooks')
+  @JoinTable()
+  holders: User[];
 }

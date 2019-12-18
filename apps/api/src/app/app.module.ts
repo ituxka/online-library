@@ -9,6 +9,7 @@ import { SeederModule } from './modules/seeder/seeder.module';
 import { AuthorModule } from './modules/author/author.module';
 import { BookModule } from './modules/book/book.module';
 import { join } from 'path';
+import { BookingModule } from './modules/booking/booking.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { join } from 'path';
     SeederModule,
     AuthorModule,
     BookModule,
+    BookingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
