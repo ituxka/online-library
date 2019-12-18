@@ -1,16 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { BookService } from '../../book.service';
-import { IBook } from '@online-library/api-interfaces';
+import { IBook, UserRole } from '@online-library/api-interfaces';
 import { Observable } from 'rxjs';
+import { BookingService } from '../../booking.service';
+import { AuthQuery, AuthStoreService } from '../../../auth/state';
+import { SnackbarService } from '../../../shared/services/snackbar/snackbar.service';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component({
   selector: 'ol-book-detail',
   templateUrl: './book-detail.component.html',
   styleUrls: ['./book-detail.component.css'],
 })
-export class BookDetailComponent {
+export class BookDetailComponent implements OnDestroy {
+  roles = UserRole;
+
   book$: Observable<IBook> = this.route.paramMap
     .pipe(
       map(paramMap => paramMap.get('id')),
@@ -24,7 +30,28 @@ export class BookDetailComponent {
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
+    private bookingService: BookingService,
+    private authQuery: AuthQuery,
+    private authStoreService: AuthStoreService,
+    private snackbarService: SnackbarService,
   ) {
+  }
+
+  // must be present for untilDestroy operator
+  ngOnDestroy() {
+  }
+
+  onCreateOrder(bookId: number) {
+    const userId = this.authQuery.userId();
+    this.bookingService.createOrder(userId, bookId)
+      .pipe(untilDestroyed(this))
+      .subscribe({
+        next: (user) => {
+          this.authStoreService.setUser(user);
+          this.snackbarService.openSuccess('Successfully booked!');
+        },
+        error: ({ error }) => this.snackbarService.openError(error.message),
+      });
   }
 
 }

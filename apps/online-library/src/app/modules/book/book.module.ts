@@ -12,6 +12,7 @@ import { BookListComponent } from './containers/book-library/book-list/book-list
 import { BookFilterComponent } from './containers/book-library/book-filter/book-filter.component';
 import { FormsModule } from '@angular/forms';
 import { BookDetailComponent } from './containers/book-detail/book-detail.component';
+import { BookingService } from './booking.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { BookDetailComponent } from './containers/book-detail/book-detail.compon
   ],
   providers: [
     BookService,
+    BookingService,
   ],
   exports: [
     BookNavComponent,

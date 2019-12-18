@@ -63,4 +63,8 @@ export class AuthStoreService {
     this.authStore.update(createInitialState());
   }
 
+  setUser(user: IUserSafe) {
+    return this.authStore.update({ user });
+  }
+
 }
