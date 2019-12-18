@@ -1,4 +1,11 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookService } from '../../book.service';
 import { IAuthor, IBook } from '@online-library/api-interfaces';
@@ -10,6 +17,7 @@ import { Observable } from 'rxjs';
   selector: 'ol-book',
   templateUrl: './book-create.component.html',
   styleUrls: ['./book-create.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookCreateComponent implements OnInit, OnDestroy {
   bookForm: FormGroup;
@@ -23,6 +31,7 @@ export class BookCreateComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private bookService: BookService,
     private snackbarService: SnackbarService,
+    private cd: ChangeDetectorRef,
   ) {
     this.authors$ = this.bookService.getAllAuthors();
   }
@@ -60,6 +69,7 @@ export class BookCreateComponent implements OnInit, OnDestroy {
         next: () => {
           this.snackbarService.openSuccess('Successfully created');
           this.initForm();
+          this.cd.detectChanges();
         },
         error: ({ error }) => {
           this.snackbarService.openError(JSON.stringify(error.message));
@@ -88,6 +98,7 @@ export class BookCreateComponent implements OnInit, OnDestroy {
     fileReader.onload = (() => {
       const imgEl = this.previewCoverImageEl.nativeElement as HTMLImageElement;
       imgEl.src = fileReader.result as string;
+      this.cd.detectChanges();
     });
 
     fileReader.readAsDataURL(file);

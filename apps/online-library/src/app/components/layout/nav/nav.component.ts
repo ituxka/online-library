@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthQuery, AuthStoreService } from '../../../modules/auth/state';
@@ -9,6 +9,7 @@ import { UserRole } from '@online-library/api-interfaces';
   selector: 'ol-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavComponent implements OnInit {
   roles = UserRole;

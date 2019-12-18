@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BookService } from '../../book.service';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { IAuthor, IBook } from '@online-library/api-interfaces';
@@ -9,6 +9,7 @@ import { BookFilterFn } from './book-filter/book-filter.functions';
   selector: 'ol-book-library',
   templateUrl: './book-library.component.html',
   styleUrls: ['./book-library.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookLibraryComponent {
   booksWithFilter$: Observable<IBook[]>;

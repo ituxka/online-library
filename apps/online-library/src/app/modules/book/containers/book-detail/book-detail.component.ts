@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { BookService } from '../../book.service';
@@ -13,6 +13,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
   selector: 'ol-book-detail',
   templateUrl: './book-detail.component.html',
   styleUrls: ['./book-detail.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookDetailComponent implements OnDestroy {
   roles = UserRole;

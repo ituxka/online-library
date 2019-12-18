@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { IAuthor } from '@online-library/api-interfaces';
 import {
   BookFilterFn,
@@ -12,6 +12,7 @@ import {
   selector: 'ol-book-filter',
   templateUrl: './book-filter.component.html',
   styleUrls: ['./book-filter.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookFilterComponent {
   @Input() authors: IAuthor[] = [];

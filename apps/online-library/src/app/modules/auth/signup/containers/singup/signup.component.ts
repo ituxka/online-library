@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthStoreService } from '../../../state';
 import { SnackbarService } from '../../../../shared/services/snackbar/snackbar.service';
@@ -9,6 +9,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
   selector: 'ol-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent implements OnInit, OnDestroy {
   signUpForm: FormGroup;
