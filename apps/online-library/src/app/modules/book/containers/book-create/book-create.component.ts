@@ -53,8 +53,9 @@ export class BookCreateComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  onClear() {
+  onClearFields() {
     this.bookForm.reset();
+    this.onResetCover();
   }
 
   onSubmit() {
@@ -68,7 +69,7 @@ export class BookCreateComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.snackbarService.openSuccess('Successfully created');
-          this.initForm();
+          this.onClearFields();
           this.cd.detectChanges();
         },
         error: ({ error }) => {
