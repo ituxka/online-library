@@ -30,12 +30,12 @@
 
       <div *olIfHasRoles="[roles.USER]">
         <button
-          *ngIf="book.isAvailableToOrder; else notAvailableToOrderText"
+          *ngIf="isAvailableToOrder$ | async; else notAvailableToOrderText"
           (click)="onCreateOrder(book.id)"
           mat-raised-button
-        >BOOK</button>
+        >Order</button>
         <ng-template #notAvailableToOrderText>
-          <button mat-raised-button color="warn" disabled>NOT AVAILABLE TO ORDER</button>
+          <button mat-raised-button color="warn" disabled>Already ordered</button>
         </ng-template>
       </div>
 
