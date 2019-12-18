@@ -17,7 +17,7 @@ export class BookingService {
   }
 
   async createOrder(userId: number, bookId: number): Promise<IUserSafe> {
-    const user = await this.userRepository.findOne({ id: userId }, { relations: ['bookedBooks'] });
+    const user = await this.userRepository.findOne({ id: userId }, { relations: ['orderedBooks'] });
     const book = await this.bookRepository.findOne({ id: bookId });
 
     if (!this.isAvailableToOrder(book)) {
