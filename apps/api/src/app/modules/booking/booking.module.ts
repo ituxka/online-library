@@ -19,6 +19,7 @@ import { UserService } from '../user/user.service';
   controllers: [
     BookingController,
   ],
+  exports: [BookingService],
 })
 export class BookingModule {
 }

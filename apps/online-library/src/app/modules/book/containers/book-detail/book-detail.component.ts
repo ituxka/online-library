@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import { filter, map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 import { BookService } from '../../book.service';
 import { IBook, UserRole } from '@online-library/api-interfaces';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
@@ -8,6 +8,7 @@ import { BookingService } from '../../booking.service';
 import { AuthQuery, AuthStoreService } from '../../../auth/state';
 import { SnackbarService } from '../../../shared/services/snackbar/snackbar.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { WebsocketService } from '../../websocket.service';
 
 @Component({
   selector: 'ol-book-detail',
@@ -20,7 +21,11 @@ export class BookDetailComponent implements OnDestroy {
 
   updateBook$ = new BehaviorSubject(null);
 
-  book$: Observable<IBook> = combineLatest(this.route.paramMap, this.updateBook$)
+  book$: Observable<IBook> = combineLatest(
+    this.route.paramMap,
+    this.updateBook$,
+    this.websocketService.onUpdateBook().pipe(startWith(null)),
+  )
     .pipe(
       map(([paramMap]) => paramMap),
       map(paramMap => paramMap.get('id')),
@@ -46,6 +51,7 @@ export class BookDetailComponent implements OnDestroy {
     private authQuery: AuthQuery,
     private authStoreService: AuthStoreService,
     private snackbarService: SnackbarService,
+    private websocketService: WebsocketService,
   ) {
   }
 

@@ -12,6 +12,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from '../environments/environment';
 import { BookModule } from './modules/book/book.module';
+import { SocketIoModule } from 'ngx-socket-io';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { BookModule } from './modules/book/book.module';
     AuthModule,
     BookModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
+    SocketIoModule.forRoot({ url: 'http://localhost:3333' }),
   ],
   providers: [],
   bootstrap: [AppComponent],

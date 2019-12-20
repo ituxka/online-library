@@ -6,9 +6,12 @@ import { USER_REPOSITORY } from '../user/user.constants';
 import { User } from '../user/user.entity';
 import { IBook, IUser, IUserSafe } from '@online-library/api-interfaces';
 import { UserService } from '../user/user.service';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class BookingService {
+  updatedBook$ = new Subject<IBook>();
+
   constructor(
     @Inject(BOOK_REPOSITORY) private bookRepository: Repository<Book>,
     @Inject(USER_REPOSITORY) private userRepository: Repository<User>,
@@ -28,7 +31,9 @@ export class BookingService {
       throw new HttpException('Book already ordered', HttpStatus.BAD_REQUEST);
     }
 
-    const updatedUser = await this.updateRelations(user, book);
+    const { user: updatedUser, book: updatedBook } = await this.updateRelations(user, book);
+    this.updatedBook$.next(updatedBook);
+
     return this.userService.convertToSafeUser(updatedUser);
   }
 
@@ -36,18 +41,22 @@ export class BookingService {
     return user.orderedBooks.find(userBook => userBook.id === book.id) != null;
   }
 
-  private async updateRelations(user: IUser, book: IBook): Promise<IUser> {
+  private async updateRelations(user: IUser, book: IBook): Promise<{user: IUser, book: IBook}> {
     let updatedUser: IUser = null;
+    let updatedBook: IBook = null;
     try {
       await getConnection().transaction(async (transactionEntityManager) => {
-        const updatedBook = await this.updateBookCopiesStatus(book, transactionEntityManager);
+        updatedBook = await this.updateBookCopiesStatus(book, transactionEntityManager);
         updatedUser = await this.updateUserBooksStatus(user, updatedBook, transactionEntityManager);
       });
     } catch (e) {
       throw new HttpException('Could not order a book', HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    return updatedUser;
+    return {
+      user: updatedUser,
+      book: updatedBook,
+    };
   }
 
   private async updateUserBooksStatus(

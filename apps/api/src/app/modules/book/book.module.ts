@@ -4,19 +4,21 @@ import { userProviders } from '../user/user.providers';
 import { DatabaseModule } from '../../database/database.module';
 import { BookService } from './book.service';
 import { BookController } from './book.controller';
-import { BookingService } from '../booking/booking.service';
 import { UserService } from '../user/user.service';
+import { BookGateway } from './gateway/book.gateway';
+import { BookingModule } from '../booking/booking.module';
 
 @Module({
   imports: [
     DatabaseModule,
+    BookingModule,
   ],
   providers: [
     ...bookProviders,
     ...userProviders,
+    BookGateway,
     BookService,
     UserService,
-    BookingService,
   ],
   controllers: [BookController],
 })
