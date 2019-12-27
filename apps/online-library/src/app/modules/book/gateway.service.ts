@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { IBook, WsActions } from '@online-library/api-interfaces';
 
 @Injectable()
-export class WebsocketService {
+export class GatewayService {
   constructor(
     private socket: Socket,
   ) {

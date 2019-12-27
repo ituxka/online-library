@@ -13,7 +13,7 @@ import { BookFilterComponent } from './containers/book-library/book-filter/book-
 import { FormsModule } from '@angular/forms';
 import { BookDetailComponent } from './containers/book-detail/book-detail.component';
 import { BookingService } from './booking.service';
-import { WebsocketService } from './websocket.service';
+import { GatewayService } from './gateway.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,7 @@ import { WebsocketService } from './websocket.service';
   providers: [
     BookService,
     BookingService,
-    WebsocketService,
+    GatewayService,
   ],
   exports: [
     BookNavComponent,

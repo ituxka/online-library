@@ -8,7 +8,7 @@ import { BookingService } from '../../booking.service';
 import { AuthQuery, AuthStoreService } from '../../../auth/state';
 import { SnackbarService } from '../../../shared/services/snackbar/snackbar.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { WebsocketService } from '../../websocket.service';
+import { GatewayService } from '../../gateway.service';
 
 @Component({
   selector: 'ol-book-detail',
@@ -24,7 +24,7 @@ export class BookDetailComponent implements OnDestroy {
   book$: Observable<IBook> = combineLatest(
     this.route.paramMap,
     this.updateBook$,
-    this.websocketService.onUpdateBook().pipe(startWith(null)),
+    this.gatewayService.onUpdateBook().pipe(startWith(null)),
   )
     .pipe(
       map(([paramMap]) => paramMap),
@@ -51,7 +51,7 @@ export class BookDetailComponent implements OnDestroy {
     private authQuery: AuthQuery,
     private authStoreService: AuthStoreService,
     private snackbarService: SnackbarService,
-    private websocketService: WebsocketService,
+    private gatewayService: GatewayService,
   ) {
   }
 
