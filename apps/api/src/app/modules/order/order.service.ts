@@ -9,6 +9,8 @@ import { OrderStatus } from './order.status';
 
 @Injectable()
 export class OrderService {
+  bookEmitter = this.bookService.book$;
+
   constructor(
     @Inject(ORDER_REPOSITORY) private orderRepository: Repository<Order>,
     private userService: UserService,
@@ -28,10 +30,22 @@ export class OrderService {
       throw new HttpException('Book already ordered', HttpStatus.BAD_REQUEST);
     }
 
-    return this.createInTransaction(order, user, book);
+    const createdOrder = this.createInTransaction(order, user, book);
+    this.emitUpdatedBook(book.id);
+
+    return createdOrder;
   }
 
-  private async createInTransaction(order: ICreateOrder, user: IUser, book: IBook) {
+  private async emitUpdatedBook(bookId: IBook['id']) {
+    const book = await this.bookService.findById(bookId);
+    this.bookEmitter.next(book);
+  }
+
+  private async createInTransaction(
+    order: ICreateOrder,
+    user: IUser,
+    book: IBook,
+  ): Promise<IOrder> {
     let orderToReturn = null;
     await getConnection().transaction(async (entityManager) => {
       const createdOrder = await entityManager.save<Partial<Order>>('Order', {

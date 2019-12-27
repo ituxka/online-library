@@ -4,14 +4,22 @@ import { Inject, Injectable } from '@nestjs/common';
 import { BOOK_REPOSITORY } from './book.constants';
 import { Repository } from 'typeorm';
 import { IBook, IUser } from '@online-library/api-interfaces';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class BookService extends TypeOrmCrudService<Book>{
+  private book = new Subject<IBook>();
+
   constructor(
     @Inject(BOOK_REPOSITORY) protected bookRepository: Repository<Book>,
   ) {
     super(bookRepository);
   }
+
+  get book$() {
+    return this.book;
+  }
+
   async findById(bookId: IBook['id']): Promise<IBook> {
     return this.bookRepository.findOne({ id: bookId }, { relations: ['holders'] });
   }
