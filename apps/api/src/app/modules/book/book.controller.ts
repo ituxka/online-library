@@ -15,7 +15,6 @@ import { IBook, UserRole } from '@online-library/api-interfaces';
 import { handleCrudError } from './crud-error.handler';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { bookStorage } from './book.storage';
-import { BookingService } from '../booking/booking.service';
 
 @Crud({
   model: {
@@ -49,7 +48,6 @@ export class BookController implements CrudController<Book> {
     // must be named 'service' for @Crud decorator to work
     // see: https://github.com/nestjsx/crud/issues/19
     public service: BookService,
-    private bookingService: BookingService,
   ) {
   }
 
@@ -70,7 +68,7 @@ export class BookController implements CrudController<Book> {
     if (file != null) {
       bookFromRequest.coverImage = file.path;
     }
-    bookFromRequest.isAvailableToOrder = this.bookingService.isAvailableToOrder(bookFromRequest);
+    bookFromRequest.isAvailableToOrder = this.service.isAvailableToOrder(bookFromRequest);
 
     try {
       const book = await this.base.createOneBase(req, bookFromRequest);
@@ -87,8 +85,7 @@ export class BookController implements CrudController<Book> {
   ): Promise<Book> {
     try {
       const book = await this.base.updateOneBase(req, dto);
-      const updatedBook = await this.service.updateAvailability(book);
-      return updatedBook;
+      return this.service.updateAvailability(book);
     } catch (e) {
       handleCrudError(e);
     }

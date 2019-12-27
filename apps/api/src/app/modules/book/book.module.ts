@@ -6,12 +6,10 @@ import { BookService } from './book.service';
 import { BookController } from './book.controller';
 import { UserService } from '../user/user.service';
 import { BookGateway } from './gateway/book.gateway';
-import { BookingModule } from '../booking/booking.module';
 
 @Module({
   imports: [
     DatabaseModule,
-    BookingModule,
   ],
   providers: [
     ...bookProviders,
@@ -21,6 +19,9 @@ import { BookingModule } from '../booking/booking.module';
     UserService,
   ],
   controllers: [BookController],
+  exports: [
+    BookService,
+  ],
 })
 export class BookModule {
 }

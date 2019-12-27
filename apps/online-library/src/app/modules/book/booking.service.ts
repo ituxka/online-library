@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IUser } from '@online-library/api-interfaces';
+import { ICreateOrder, IUser } from '@online-library/api-interfaces';
 import { environment } from '../../../environments/environment';
 import { AuthQuery } from '../auth/state';
 
@@ -17,7 +17,7 @@ export class BookingService {
 
   createOrder(userId: number, bookId: number): Observable<IUser> {
     return this.http
-      .post<IUser>(`${this.url}booking`, { userId, bookId }, {
+      .post<IUser>(`${this.url}order`, { userId, bookId } as ICreateOrder, {
         headers: {
           Authorization: `Bearer ${this.authQuery.getValue().token}`,
         },

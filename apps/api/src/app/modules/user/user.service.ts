@@ -2,13 +2,12 @@ import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { USER_REPOSITORY } from './user.constants';
-import { UserRole, IUserSafe, IUser } from '@online-library/api-interfaces';
+import { UserRole, IUserSafe, IUser, IBook } from '@online-library/api-interfaces';
 
 @Injectable()
 export class UserService {
   constructor(
-    @Inject(USER_REPOSITORY)
-    private userRepository: Repository<User>,
+    @Inject(USER_REPOSITORY) private userRepository: Repository<User>,
   ) {
   }
 
@@ -20,6 +19,18 @@ export class UserService {
 
     const user = this.userRepository.create({ email, password, role });
     return this.userRepository.save(user);
+  }
+
+  isBookAlreadyOrdered(orderedBooks: IBook[], bookId: IBook['id']): boolean {
+    return orderedBooks.find(userBook => userBook.id === bookId) != null;
+  }
+
+  addOrderedBook(user: IUser, book: IBook): IUser['orderedBooks'] {
+    return [...user.orderedBooks, book];
+  }
+
+  findById(userId: IUser['id']): Promise<IUser> {
+    return this.userRepository.findOne({ id: userId }, { relations: ['orderedBooks'] });
   }
 
   findOne(email: string) {

@@ -4,6 +4,7 @@ import { User } from '../modules/user/user.entity';
 import { environment } from '../../environments/environment';
 import { Author } from '../modules/author/author.entity';
 import { Book } from '../modules/book/book.entity';
+import { Order } from '../modules/order/order.entity';
 
 export const databaseProviders = [
   {
@@ -19,6 +20,7 @@ export const databaseProviders = [
         User,
         Author,
         Book,
+        Order,
       ],
       synchronize: true,
     }),

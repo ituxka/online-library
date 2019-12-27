@@ -4,10 +4,8 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { BookingService } from '../../booking/booking.service';
 import { Client, Server, Socket } from 'socket.io';
 import { WsAction } from '@online-library/api-interfaces';
-import { UpdateBook } from './actions';
 
 @WebSocketGateway()
 export class BookGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -15,10 +13,7 @@ export class BookGateway implements OnGatewayConnection, OnGatewayDisconnect {
   clients: Socket[] = [];
 
   constructor(
-    private bookingService: BookingService,
   ) {
-    this.bookingService.updatedBook$
-      .subscribe(book => this.broadcast(UpdateBook(book)));
   }
 
   handleConnection(client: Socket, ...args) {
