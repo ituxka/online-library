@@ -71,8 +71,7 @@ export class BookController implements CrudController<Book> {
     bookFromRequest.isAvailableToOrder = this.service.isAvailableToOrder(bookFromRequest);
 
     try {
-      const book = await this.base.createOneBase(req, bookFromRequest);
-      return book;
+      return this.base.createOneBase(req, bookFromRequest);
     } catch (e) {
       handleCrudError(e);
     }
