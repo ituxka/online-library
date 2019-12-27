@@ -29,6 +29,10 @@ export class UserService {
     return [...user.orderedBooks, book];
   }
 
+  removeOrderedBook(user: IUser, book: IBook): IUser['orderedBooks'] {
+    return user.orderedBooks.filter(orderedBook => orderedBook.id !== book.id);
+  }
+
   findById(userId: IUser['id']): Promise<IUser> {
     return this.userRepository.findOne({ id: userId }, { relations: ['orderedBooks'] });
   }

@@ -5,6 +5,7 @@ import { UserModule } from '../user/user.module';
 import { BookModule } from '../book/book.module';
 import { orderProviders } from './order.providers';
 import { OrderController } from './order.controller';
+import { CronService } from '../utility/cron/cron.service';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { OrderController } from './order.controller';
   providers: [
     ...orderProviders,
     OrderService,
+    CronService,
   ],
   controllers: [
     OrderController,

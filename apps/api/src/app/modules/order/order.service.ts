@@ -6,6 +6,8 @@ import { getConnection, Repository } from 'typeorm';
 import { Order } from './order.entity';
 import { IBook, ICreateOrder, IOrder, IUser } from '@online-library/api-interfaces';
 import { OrderStatus } from './order.status';
+import { CronService } from '../utility/cron/cron.service';
+import { DateTime } from 'luxon';
 
 @Injectable()
 export class OrderService {
@@ -15,6 +17,7 @@ export class OrderService {
     @Inject(ORDER_REPOSITORY) private orderRepository: Repository<Order>,
     private userService: UserService,
     private bookService: BookService,
+    private cronService: CronService,
   ) {
   }
 
@@ -30,10 +33,47 @@ export class OrderService {
       throw new HttpException('Book already ordered', HttpStatus.BAD_REQUEST);
     }
 
-    const createdOrder = this.createInTransaction(order, user, book);
+    const createdOrder = await this.createInTransaction(order, user, book);
     this.emitUpdatedBook(book.id);
+    this.cronService.schedule(createdOrder.expiresAt, this.cancelOrder(createdOrder));
 
     return createdOrder;
+  }
+
+  cancelOrder(order: IOrder) {
+    return async () => {
+      const { id } = order;
+      const exists = await this.isOrderExists(id);
+      if (!exists) {
+        return;
+      }
+
+      const user = await this.userService.findById(order.userId);
+      const book = await this.bookService.findById(order.bookId);
+      this.cancelInTransaction(order, user, book);
+    };
+  }
+
+  private async cancelInTransaction(order: IOrder, user: IUser, book: IBook) {
+    await getConnection().transaction(async (entityManager) => {
+      const deleteResult = await entityManager.delete(Order, { ...order });
+      if (deleteResult.affected === 0) {
+        return;
+      }
+
+      const updatedBook = this.bookService.removeHolderAndUpdateAvailability(book, user);
+      user.orderedBooks = this.userService.removeOrderedBook(user, updatedBook);
+
+      await entityManager.save(updatedBook);
+      await entityManager.save(user);
+
+      this.emitUpdatedBook(updatedBook.id);
+    });
+  }
+
+  private async isOrderExists(orderId: IOrder['id']): Promise<boolean> {
+    const order = await this.orderRepository.findOne({ id: orderId });
+    return order != null;
   }
 
   private async emitUpdatedBook(bookId: IBook['id']) {
@@ -67,7 +107,6 @@ export class OrderService {
   }
 
   private expirationDate() {
-    const now = new Date();
-    return new Date(now.setDate(now.getDate() + 1)); // 1 day
+    return DateTime.local().plus({ minutes: 1 }).toJSDate();
   }
 }

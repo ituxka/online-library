@@ -40,8 +40,18 @@ export class BookService extends TypeOrmCrudService<Book>{
     return this.updateAvailability(book);
   }
 
+  removeHolderAndUpdateAvailability(book: IBook, holder: IUser): IBook {
+    book.holders = this.removeHolder(book, holder);
+    book.copiesOrdered -= 1;
+    return this.updateAvailability(book);
+  }
+
   private addHolder(book: IBook, holder: IUser): IBook['holders'] {
     return [...book.holders, holder];
+  }
+
+  private removeHolder(book: IBook, holder: IUser): IBook['holders'] {
+    return book.holders.filter(h => h.id !== holder.id);
   }
 
   private normalizeIfEmpty(book: IBook): IBook {
