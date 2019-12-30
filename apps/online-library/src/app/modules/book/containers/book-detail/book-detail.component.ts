@@ -64,8 +64,7 @@ export class BookDetailComponent implements OnDestroy {
     this.bookingService.createOrder(userId, bookId)
       .pipe(untilDestroyed(this))
       .subscribe({
-        next: (user) => {
-          this.authStoreService.setUser(user);
+        next: () => {
           this.updateBook$.next(null);
           this.snackbarService.openSuccess('Successfully ordered!');
         },

@@ -15,8 +15,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.authStoreService.validateToken()
-      .catch(() => {
-        this.authStoreService.logout();
-      });
+      .then(user => this.authStoreService.setUser(user))
+      .catch(() => this.authStoreService.logout());
   }
 }

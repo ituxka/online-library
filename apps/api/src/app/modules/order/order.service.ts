@@ -56,7 +56,8 @@ export class OrderService {
 
   private async cancelInTransaction(order: IOrder, user: IUser, book: IBook) {
     await getConnection().transaction(async (entityManager) => {
-      const deleteResult = await entityManager.delete(Order, { ...order });
+      const { id, userId, bookId } = order;
+      const deleteResult = await entityManager.delete(Order, { id, userId, bookId });
       if (deleteResult.affected === 0) {
         return;
       }
@@ -107,6 +108,6 @@ export class OrderService {
   }
 
   private expirationDate() {
-    return DateTime.local().plus({ minutes: 1 }).toJSDate();
+    return DateTime.local().plus({ seconds: 10 }).toJSDate();
   }
 }

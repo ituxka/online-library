@@ -38,7 +38,7 @@ export class UserService {
   }
 
   findOne(email: string) {
-    return this.userRepository.findOne({ email });
+    return this.userRepository.findOne({ email }, { relations: ['orderedBooks'] });
   }
 
   convertToSafeUser(user: IUser): IUserSafe {
