@@ -8,6 +8,7 @@ import { IBook, ICreateOrder, IOrder, IUser } from '@online-library/api-interfac
 import { OrderStatus } from './order.status';
 import { CronService } from '../utility/cron/cron.service';
 import { DateTime } from 'luxon';
+import { StatusException } from './exceptions/status.exception';
 
 @Injectable()
 export class OrderService {
@@ -19,6 +20,16 @@ export class OrderService {
     private bookService: BookService,
     private cronService: CronService,
   ) {
+  }
+
+  async changeOrderStatus(userId: IUser['id'], bookId: IBook['id'], status: OrderStatus) {
+    const order = await this.orderRepository.findOne({ userId, bookId });
+    if (order.status === status) {
+      throw new StatusException(`order already in status: ${status}`);
+    }
+
+    order.status = status;
+    return this.orderRepository.save(order);
   }
 
   async create(order: ICreateOrder): Promise<IOrder> {

@@ -11,6 +11,7 @@ import { BookModule } from './modules/book/book.module';
 import { join } from 'path';
 import { OrderModule } from './modules/order/order.module';
 import { CronModule } from './modules/utility/cron/cron.module';
+import { CheckoutModule } from './modules/checkout/checkout.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { CronModule } from './modules/utility/cron/cron.module';
     AuthorModule,
     BookModule,
     OrderModule,
+    CheckoutModule,
     CronModule,
   ],
   controllers: [AppController],

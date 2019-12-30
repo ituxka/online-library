@@ -18,6 +18,9 @@ import { CronService } from '../utility/cron/cron.service';
     OrderService,
     CronService,
   ],
+  exports: [
+    ...orderProviders,
+  ],
   controllers: [
     OrderController,
   ],

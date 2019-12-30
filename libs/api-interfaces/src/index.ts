@@ -5,3 +5,4 @@ export * from './lib/author.interfaces';
 export * from './lib/book.interfaces';
 export * from './lib/ws-actions.interfaces';
 export * from './lib/order.interfaces';
+export * from './lib/checkout.interfaces';
