@@ -1,0 +1,14 @@
+<mat-list *ngIf="(holders$ | async) as holders; else noHolders">
+  <h3 mat-subheader>Holders</h3>
+  <mat-list-item *ngFor="let holder of holders;">
+    <mat-icon mat-list-icon>face</mat-icon>
+    <h4 mat-line>{{holder.email}}</h4>
+    <p mat-line>{{holder.expiresAt | date}}</p>
+    <p mat-line style="font-weight: bold">{{holder.status}}</p>
+    <button (click)="onCheckout(holder)" mat-raised-button>Checkout</button>
+  </mat-list-item>
+</mat-list>
+
+<ng-template #noHolders>
+  No Holders yet!
+</ng-template>

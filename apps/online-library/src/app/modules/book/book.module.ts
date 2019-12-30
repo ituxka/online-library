@@ -14,6 +14,9 @@ import { FormsModule } from '@angular/forms';
 import { BookDetailComponent } from './containers/book-detail/book-detail.component';
 import { BookingService } from './booking.service';
 import { GatewayService } from './gateway.service';
+import {
+  BookDetailModeratorComponent,
+} from './containers/book-detail/moderator/book-detail-moderator.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import { GatewayService } from './gateway.service';
     BookListComponent,
     BookFilterComponent,
     BookDetailComponent,
+    BookDetailModeratorComponent,
   ],
   imports: [
     CommonModule,

@@ -33,6 +33,7 @@ import { CheckoutModule } from './modules/checkout/checkout.module';
     environment.production ? [] : AkitaNgDevtools.forRoot(),
     SocketIoModule.forRoot({ url: 'http://localhost:3333' }),
     UserModule,
+    CheckoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

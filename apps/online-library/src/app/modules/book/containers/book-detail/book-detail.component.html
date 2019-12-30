@@ -42,8 +42,15 @@
     </mat-card-actions>
   </mat-card>
 
+  <button
+    *olIfHasRoles="[roles.MODERATOR]"
+    routerLink="moderator"
+    mat-raised-button
+    style="margin-top: 5px">Moderate</button>
 </div>
 
 <ng-template #notFound>
   Book not found
 </ng-template>
+
+<router-outlet></router-outlet>
