@@ -21,6 +21,10 @@ export class OrderService {
   ) {
   }
 
+  getBookOrders(bookId: number): Promise<IOrder[]> {
+    return this.orderRepository.find({ bookId });
+  }
+
   async changeOrderStatus(userId: IUser['id'], bookId: IBook['id'], status: OrderStatus) {
     const order = await this.orderRepository.findOne({ userId, bookId });
     if (order.status === status) {
