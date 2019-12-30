@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CronService } from '../utility/cron/cron.service';
-import { Checkout } from '@online-library/api-interfaces';
+import { Checkout, OrderStatus } from '@online-library/api-interfaces';
 import { OrderService } from '../order/order.service';
-import { OrderStatus } from '../order/order.status';
 import { DateTime } from 'luxon';
 
 @Injectable()

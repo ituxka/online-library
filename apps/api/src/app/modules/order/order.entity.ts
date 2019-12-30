@@ -1,6 +1,5 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
-import { IOrder } from '@online-library/api-interfaces';
-import { OrderStatus } from './order.status';
+import { IOrder, OrderStatus } from '@online-library/api-interfaces';
 import { BaseModel } from '../base.entity';
 
 @Entity()
