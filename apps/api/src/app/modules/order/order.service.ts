@@ -11,7 +11,7 @@ import { DateTime } from 'luxon';
 
 @Injectable()
 export class OrderService {
-  bookEmitter = this.bookService.book$;
+  private bookEmitter = this.bookService.book$;
 
   constructor(
     @Inject(ORDER_REPOSITORY) private orderRepository: Repository<Order>,
