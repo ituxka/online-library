@@ -122,6 +122,6 @@ export class OrderService {
   }
 
   private expirationDate() {
-    return DateTime.local().plus({ seconds: 10 }).toJSDate();
+    return DateTime.local().plus({ days: 10 }).toJSDate();
   }
 }

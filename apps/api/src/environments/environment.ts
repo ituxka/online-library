@@ -7,4 +7,13 @@ export const environment = {
     email: 'example@test',
     password: 'qwe123',
   },
+  email: {
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: '', // your login
+      pass: '', // your password
+    },
+  },
 };

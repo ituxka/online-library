@@ -12,6 +12,7 @@ import { join } from 'path';
 import { OrderModule } from './modules/order/order.module';
 import { CronModule } from './modules/utility/cron/cron.module';
 import { CheckoutModule } from './modules/checkout/checkout.module';
+import { MailerModule } from './modules/utility/mailer/mailer.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { CheckoutModule } from './modules/checkout/checkout.module';
     OrderModule,
     CheckoutModule,
     CronModule,
+    MailerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
