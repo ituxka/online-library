@@ -7,8 +7,12 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class AuthorService extends TypeOrmCrudService<Author> {
   constructor(
-    @Inject(AUTHOR_REPOSITORY) authorRepository: Repository<Author>,
+    @Inject(AUTHOR_REPOSITORY) private authorRepository: Repository<Author>,
   ) {
     super(authorRepository);
+  }
+
+  get repository() {
+    return this.authorRepository;
   }
 }

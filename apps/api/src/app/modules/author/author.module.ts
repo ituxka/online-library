@@ -15,6 +15,9 @@ import { AuthorUniqueGuard } from './guards/author-unique.guard';
     AuthorUniqueGuard,
   ],
   controllers: [AuthorController],
+  exports: [
+    AuthorService,
+  ],
 })
 export class AuthorModule {
 }
