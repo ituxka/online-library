@@ -55,7 +55,7 @@
     "@nestjsx/crud": "^4.2.0",
     "@nestjsx/crud-typeorm": "^4.2.0",
     "@nrwl/angular": "8.9.0",
-    "bcrypt": "^3.0.7",
+    "bcrypt": "^5.0.0",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
     "core-js": "^2.5.4",
